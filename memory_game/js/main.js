@@ -20,7 +20,9 @@ var cards = [
     cardImage: "images/king-of-diamonds.png"
   }
 ];
+var shuffleCards = [];
 var cardsInPlay = [];
+shuffleCards = shuffle(cards);
 
 var checkForMatch = function () {
 
@@ -35,12 +37,12 @@ var checkForMatch = function () {
 
 var flipCard = function () {
   var cardId = this.getAttribute('data-id');
-  this.setAttribute('src', cards[cardId].cardImage);
-  cardsInPlay.push(cards[cardId].rank);
+  this.setAttribute('src', shuffleCards[cardId].cardImage);
+  cardsInPlay.push(shuffleCards[cardId].rank);
   setTimeout(function(){checkForMatch()}, 100);
-  console.log("User flipped " + cards[cardId].rank);
-  console.log(cards[cardId].cardImage);
-  console.log(cards[cardId].suit);
+  console.log("User flipped " + shuffleCards[cardId].rank);
+  console.log(shuffleCards[cardId].cardImage);
+  console.log(shuffleCards[cardId].suit);
 }
 
 var createBoard = function () {
@@ -56,6 +58,7 @@ createBoard();
 
 var reset = function () {
   cardsInPlay = [];
+  shuffleCards = shuffle(cards);
   var imgArr = document.querySelectorAll('img');
   for(var i = 0; i < imgArr.length; i++) {
     imgArr[i].setAttribute('src', "images/back.png");
@@ -66,11 +69,20 @@ var button = document.querySelector('button');
 button.addEventListener('click', reset);
 
 
-function shuffle(cardsInPlay) {
-    for (let i = cardsInPlay.length; i; i--) {
-        let j = Math.floor(Math.random() * i);
-        [a[i - 1], a[j]] = [a[j], a[i - 1]];
-    }
-}
+function shuffle(array) {
+  var m = array.length, t, i;
 
-var newArr = shuffle(cardsInPlay);
+  // While there remain elements to shuffle…
+  while (m) {
+
+    // Pick a remaining element…
+    i = Math.floor(Math.random() * m--);
+
+    // And swap it with the current element.
+    t = array[m];
+    array[m] = array[i];
+    array[i] = t;
+  }
+
+  return array;
+}
