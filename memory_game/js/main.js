@@ -64,3 +64,13 @@ var reset = function () {
 
 var button = document.querySelector('button');
 button.addEventListener('click', reset);
+
+
+function shuffle(cardsInPlay) {
+    for (let i = cardsInPlay.length; i; i--) {
+        let j = Math.floor(Math.random() * i);
+        [a[i - 1], a[j]] = [a[j], a[i - 1]];
+    }
+}
+
+var newArr = shuffle(cardsInPlay);
